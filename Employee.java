@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat;
  */
 public class Employee extends JFrame implements ActionListener{
     
-    
+    //adding components
     Container cpane;
     JCheckBox egg,coffee,toast,steak,potato,wine,cake;
     
