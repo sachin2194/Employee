@@ -42,8 +42,11 @@ public class Employee extends JFrame implements ActionListener{
     Statement stmt;
     ResultSet rs;
     
+    
+    //Constructor Employee
     Employee()
     {
+        //setting window and layout
         cpane=getContentPane();
         cpane.setBackground(Color.GRAY);
         cpane.setLayout(new FlowLayout());
@@ -51,6 +54,8 @@ public class Employee extends JFrame implements ActionListener{
         setSize(600,400);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        //exeception handling and databse connection
         try
         {
             Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -64,6 +69,8 @@ psupdate=con.prepareStatement("update Employee set EmployeeName=?,Balance=?,Date
         }
         catch(Exception ex){}
     }
+    
+    //adding the controls to the window
     private void addControls()
     {
        
@@ -79,7 +86,7 @@ psupdate=con.prepareStatement("update Employee set EmployeeName=?,Balance=?,Date
         e_txt_bal=new JTextField(10);
         e_txt_date=new JTextField(10);
         
-        
+        //button names
         btnupdate=new JButton("Update");
         btninsert=new JButton("Insert");
         btnshowall=new JButton("ShowAll");
@@ -96,7 +103,7 @@ psupdate=con.prepareStatement("update Employee set EmployeeName=?,Balance=?,Date
         wine=new JCheckBox("Wine");
         cake=new JCheckBox("Cake");
         
-
+// adding to window panel
         cpane.add( Emp_id);
         cpane.add(e_txt_id);
         cpane.add( Emp_name);
@@ -128,7 +135,7 @@ psupdate=con.prepareStatement("update Employee set EmployeeName=?,Balance=?,Date
        
         
               
-               
+               //condition to visible checkbox
       if(btn_morning.isSelected()){
           
       
@@ -155,17 +162,20 @@ psupdate=con.prepareStatement("update Employee set EmployeeName=?,Balance=?,Date
             }
         });
       }
+      //button click event
        btninsert.addActionListener(this);
         btnshowall.addActionListener(this);
         btnupdate.addActionListener(this);
         btncheck.addActionListener(this);
         
     }
+    
+    //button action performed
     public void actionPerformed(ActionEvent ae)
     {
         String str=ae.getActionCommand();
         try{
-            
+            //inserting data
              if(str=="Insert")
             {
                 int rn=Integer.parseInt(e_txt_id.getText());
@@ -180,6 +190,7 @@ psupdate=con.prepareStatement("update Employee set EmployeeName=?,Balance=?,Date
               
                 
             }
+            //updating
             else if(str=="Update")
             {
                 int rn=Integer.parseInt(e_txt_id.getText());
@@ -191,6 +202,8 @@ psupdate=con.prepareStatement("update Employee set EmployeeName=?,Balance=?,Date
                 psupdate.setInt(2,bal);
                 psupdate.executeUpdate();
             }
+            
+            //display details
             else if(str=="ShowAll")
             {
                 rs = stmt.executeQuery("select * from Employee");
@@ -202,6 +215,8 @@ psupdate=con.prepareStatement("update Employee set EmployeeName=?,Balance=?,Date
                     view.setText(str);
                 }
             }
+            
+            //check status
             else if(str=="check")
             {
                 rs=stmt.executeQuery("select * from Employee where Balance>20000");
@@ -222,6 +237,7 @@ psupdate=con.prepareStatement("update Employee set EmployeeName=?,Balance=?,Date
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //calling employee
         Employee emp=new Employee();
         // TODO code application logic here
     }
